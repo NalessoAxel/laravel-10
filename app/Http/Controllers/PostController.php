@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Validator;
 class PostController extends Controller
 {
 
+    public function store(Request $request)
+    {
+        dd($request->all());
+    }
+
     public function index(BlogFilterRequest $request): View
     {
         return view('blog.index', [
@@ -24,11 +29,16 @@ class PostController extends Controller
     {
 
         if ($post->slug !== $slug) {
-            return to_route('blog.show', ['slug' => $post->slug, 'id' => $post->id]);
+            return to_route('blog.show', ['slug' => $post->slug, 'post' => $post->id]);
         }
 
         return view('blog.show', [
             'post' => $post,
         ]);
+    }
+
+    public function create(): View
+    {
+        return view('blog.create');
     }
 }

@@ -13,22 +13,22 @@ use Illuminate\Support\Facades\Validator;
 class PostController extends Controller
 {
 
-    public function index(BlogFilterRequest $request): View {
-
+    public function index(BlogFilterRequest $request): View
+    {
         return view('blog.index', [
             'posts' => Post::paginate(1),
-        ]); 
-
+        ]);
     }
-    
-    public function show(string $slug, string $id): RedirectResponse |  view {
-        $post = Post::findOrFail($id);
 
-        if($post->slug !== $slug){
-            return to_route ('blog.show', ['slug' => $post->slug, 'id' => $post->id]);
+    public function show(string $slug, Post $post): RedirectResponse |  view
+    {
+
+        if ($post->slug !== $slug) {
+            return to_route('blog.show', ['slug' => $post->slug, 'id' => $post->id]);
         }
+
         return view('blog.show', [
-            'post'=> $post,
+            'post' => $post,
         ]);
     }
 }

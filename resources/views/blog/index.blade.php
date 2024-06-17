@@ -12,7 +12,7 @@
             <p>{{ $post->content }}</p>
 
             <p>
-                <a href="{{ route('blog.show', ['slug' => $post->slug, 'id' => $post->id]) }}">Link</a>
+                <a href="{{ route('blog.show', ['slug' => $post->slug, 'post' => $post->id]) }}">Link</a>
             </p>
         </article>
     @endforeach

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Str;
 
 class BlogFilterRequest extends FormRequest
 {
@@ -22,7 +24,15 @@ class BlogFilterRequest extends FormRequest
     public function rules(): array
     {
         return [
-            "title"=>["required","min:4"],
+            'title' => ['required', 'min:4'],
+            'slug' => ['required','regex://'],
         ];
+    }
+
+    protected function prepareForValidation() 
+    {
+        $this->merge([
+            'slug' => $this->input('slug') ?: Str::slug($this->input('title')),
+        ]);
     }
 }
